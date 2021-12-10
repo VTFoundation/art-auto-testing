@@ -17,7 +17,7 @@ function Cleanup_atomic {
 
       powershell.exe "Invoke-AtomicTest $element -Cleanup" >> "$cleanup_dir\$date_time.txt" 
       if ("cat `"$cleanup_dir\$date_time.txt`" | sls `"PermissionDenied:`"" -match "PermissionDenied:") {
-         Start-Process -Wait -Verb runAs powershell.exe "Invoke-AtomicTest $element -Cleanup" >> "$cleanup_dir\Cleanup-logs.txt" 
+         Start-Process -Wait -Verb runAs powershell.exe "Invoke-AtomicTest $element -Cleanup" >> "$cleanup_dir\$date_time.txt" 
       }
       $count++
    }
