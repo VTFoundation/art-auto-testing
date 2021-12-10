@@ -1,22 +1,45 @@
 # PI.ps1
 
-# windows ART
-# Credits to https://github.com/redcanaryco/atomic-red-team
-# Created by @anantkaul
+function green {
+   process { Write-Host $_ -ForegroundColor Green }
+}
+function Cleanup_atomic {
+   $count = 1
+   foreach ($element in $all_tids) {
+      $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
+      $date_time = $date_time.Replace(':', "-")
+      $cleanup_dir = "$pwd\Cleanup_Logs"
 
+      if (Test-Path $cleanup_dir) {
+      } else {
+         mkdir $cleanup_dir > 1.md; rm 1.md
+      }
+
+      powershell.exe "Invoke-AtomicTest $element -Cleanup" >> "$cleanup_dir\$date_time.txt" 
+      if ("cat `"$cleanup_dir\$date_time.txt`" | sls `"PermissionDenied:`"" -match "PermissionDenied:") {
+         Start-Process -Wait -Verb runAs powershell.exe "Invoke-AtomicTest $element -Cleanup" >> "$cleanup_dir\Cleanup-logs.txt" 
+      }
+      $count++
+   }
+   Write-Output " >> Cleanup Logs stored in `"$cleanup_dir\$date_time.txt`" ...`n" | green
+   exit
+}
+
+$concat_dir = $null
 do {
+   $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
+   $date_time = $date_time.Replace(':', "-")
+
    cls
-   $tid = Read-Host -Prompt "`n >> Enter the Technique ID for AtomicTest"
-   $present_dir = "$pwd\AtomicTestResults\$tid"
+   $tid = Read-Host -Prompt "`n >> Enter the Technique ID or type ALL for AtomicTest"
+   # $date_time = Get-Date -Format "dd/MM/yyyy_HH:mm:ss"
+   $present_dir = "$pwd\ART_Results\$date_time\$tid"
+
 
    if (Test-Path $present_dir) {
       Write-Output " >> Previous AtomicTest Overwriting and Updating with the Latest AtomicTest ..."
    } else {
       mkdir $present_dir > 1.md; rm 1.md
-   }
-
-   function green {
-      process { Write-Host $_ -ForegroundColor Green }
    }
 
    $check_pre = powershell.exe "Invoke-AtomicTest $tid -CheckPrereqs" | sls "-GetPrereqs"
@@ -31,7 +54,6 @@ do {
       if ($check_pre -match "-GetPrereqs") {
          # Try installing the dependencies first ...
          powershell.exe $get_pre | Out-File $present_dir\get_preq.md
-         # if ((Get-Content -Path $present_dir\get_preq.md | sls "Elevation required") -match "Elevation required") {
          if (powershell.exe "cat $present_dir\get_preq.md | sls `"Elevation required`"" -match "Elevation required") {
             Start-Process powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"`" | Out-File $present_dir\output.md" -Wait -Verb runAs
          } else {
@@ -51,5 +73,12 @@ do {
    } catch {
       Write-Output "`n >> An unexpected Error occured. Try again later ...`n"
    }
-   $condition = Read-Host -Prompt "`n >> Do you want to continue? [Y/n]"
+
+   $all_tids = ,$tid
+   $condition = Read-Host -Prompt "`n >> Do you want to continue with additional testing [Y/y] or proceed with a complete cleanup [N/n] ?"
+   # Cleanup for [n] and [y] to continue ...
+
+   if ($condition -eq "n" -or $condition -eq "N" -or $condition -eq "no" -or $condition -eq "NO") {
+      Cleanup_atomic
+   }
 } while ($condition -eq "y" -or $condition -eq "Y" -or $condition -eq "yes" -or $condition -eq "YES")
