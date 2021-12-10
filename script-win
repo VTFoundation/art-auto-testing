@@ -1,2 +1,52 @@
+# PI.ps1
+
 # windows ART
 # Credits to https://github.com/redcanaryco/atomic-red-team
+# Created by @anantkaul
+
+cls
+$tid = Read-Host -Prompt "`n >> Enter the TID for AtomicTest"
+$present_dir = "$pwd\$tid"
+
+if (Test-Path $present_dir) {
+   Write-Output " >> Previous AtomicTest Overwriting and Updating with the Latest AtomicTest ..."
+} else {
+   mkdir $present_dir > 1.md; rm 1.md
+}
+
+function green {
+   process { Write-Host $_ -ForegroundColor Green }
+}
+
+$check_pre = powershell.exe "Invoke-AtomicTest $tid -CheckPrereqs" | sls "-GetPrereqs"
+$get_pre = "Invoke-AtomicTest $tid -GetPrereqs"
+$brief_details = "Invoke-AtomicTest $tid -ShowDetailsBrief"
+# $runAs = Start-Process powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"`" | Out-File $present_dir\output.md" -Wait -Verb runAs
+# $runAs = Start-Process powershell.exe "Invoke-AtomicTest $tid -CheckPrereqs; Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"" -Wait -Verb runAs
+
+try {
+   powershell.exe $brief_details | Out-File $present_dir\Brief_Details.md
+   Remove-Item $env:TEMP\svchost-exe.dmp -ErrorAction Ignore
+   if ($check_pre -match "-GetPrereqs") {
+      # Try installing the dependencies first ...
+      powershell.exe $get_pre | Out-File $present_dir\get_preq.md
+      # if ((Get-Content -Path $present_dir\get_preq.md | sls "Elevation required") -match "Elevation required") {
+      if (powershell.exe "cat $present_dir\get_preq.md | sls `"Elevation required`"" -match "Elevation required") {
+         Start-Process powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"`" | Out-File $present_dir\output.md" -Wait -Verb runAs
+      } else {
+         Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; 
+         Invoke-AtomicTest $tid -CheckPrereqs; 
+         powershell.exe "Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"" | Out-File $present_dir\output.md
+      } 
+      rm $present_dir\get_preq.md
+   } else {
+      Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; 
+      Invoke-AtomicTest $tid -CheckPrereqs; 
+      powershell.exe "Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"" | Out-File $present_dir\output.md
+   }
+   
+   Write-Output "`n >> AtomicTest Completed Successfully !!" | green
+   Write-Output " >> Results Stored in `"$present_dir`" ...`n"
+} catch {
+   Write-Output "`n >> An unexpected Error occured. Try again later ...`n"
+}
