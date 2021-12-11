@@ -92,7 +92,7 @@ function Cleanup_atomic($atid) {
     $date_time = $date_time.Replace(':', "-")
  
     cls
-    $tid = Read-Host -Prompt "`n >> Enter the Technique ID or type ALL for AtomicTest"
+    $tid = Read-Host -Prompt "`n >> Enter the Technique ID ( with prefix `'T`' ) or type ALL for AtomicTest"
     # $date_time = Get-Date -Format "dd/MM/yyyy_HH:mm:ss"
     $present_dir = "$pwd\ART_Results\$date_time\$tid"
  
