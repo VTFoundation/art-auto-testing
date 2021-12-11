@@ -1,5 +1,8 @@
 # PI.ps1
 
+# Credits to https://github.com/redcanaryco/atomic-red-team
+# Created by @anantkaul
+
 function green {
     process { Write-Host $_ -ForegroundColor Green }
  }
