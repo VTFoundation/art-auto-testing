@@ -62,7 +62,7 @@ function green {
     }
  
     $check_pre = powershell.exe "Invoke-AtomicTest $tid -CheckPrereqs" | sls "-GetPrereqs"
-    $get_pre = "Invoke-AtomicTest $tid -GetPrereqs"
+    $get_pre = "Invoke-AtomicTest $tid -GetPrereqs -Force"
     $brief_details = "Invoke-AtomicTest $tid -ShowDetailsBrief"
     $full_details = "Invoke-AtomicTest $tid -ShowDetails"
  
