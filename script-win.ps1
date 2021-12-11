@@ -18,6 +18,7 @@ function yellow {
 if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
    # Installing Invoke-Atomic Framework
    Write-Output "`n >> Installing Invoke-Atomic Framework ..."
+   Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
    Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser -Force
    Write-Output " >> Installed Invoke-Atomic Framework successfully ..." | green
    # Getting the atomics
