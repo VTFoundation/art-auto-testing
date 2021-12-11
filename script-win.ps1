@@ -105,13 +105,13 @@ function Cleanup_atomic($atid) {
           # Try installing the dependencies first ...
           powershell.exe $get_pre | Out-File $present_dir\get_preq.md
           if (powershell.exe "cat $present_dir\get_preq.md | sls `"Elevation required`"" -match "Elevation required") {
-             Start-Process powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"`" | Out-File $present_dir\output.md" -Wait -Verb runAs
+             Start-Process powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\Logs.txt`"`" | Out-File $present_dir\Output.md" -Wait -Verb runAs
           } else {
-             Start-Process -Wait powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"`" | Out-File $present_dir\output.md"
+             Start-Process -Wait powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\Logs.txt`"`" | Out-File $present_dir\Output.md"
           } 
           rm $present_dir\get_preq.md
        } else {
-          Start-Process -Wait powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\logs.txt`"`" | Out-File $present_dir\output.md"
+          Start-Process -Wait powershell.exe "Set-ExecutionPolicy Bypass -Scope CurrentUser -Force; Invoke-AtomicTest $tid -CheckPrereqs; powershell.exe `"Invoke-AtomicTest $tid -ExecutionLogPath `"$present_dir\Logs.txt`"`" | Out-File $present_dir\Output.md"
        }
  
        if (Test-Path $HOME\Desktop\open-ports.txt) {
