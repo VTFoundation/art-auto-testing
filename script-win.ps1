@@ -11,7 +11,7 @@ $setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] o
 if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
    # Installing Invoke-Atomic Framework
    Write-Output "`n >> Installing Invoke-Atomic Framework ..."
-   Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+   Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser -Force
    Write-Output "`n >> Installed Invoke-Atomic Framework successfully ..." | green
    # Getting the atomics
    Write-Output "`n >> Getting the atomics ...`n"
@@ -22,7 +22,7 @@ if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES")
 # Checking Invoke-Atomic Framework
 if (-not (Test-Path -Path C:\AtomicRedTeam\invoke-atomicredteam)) {
    Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
-   Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+   Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser -Force
    Write-Output "`n >> Installed Invoke-Atomic Framework successfully ..." | green
 }
 # Checking the atomics
