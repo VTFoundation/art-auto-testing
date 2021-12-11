@@ -118,7 +118,7 @@ function Cleanup_atomic($atid) {
        }
        
        Write-Output "`n >> AtomicTest Completed Successfully !!" | green
-       Write-Output " >> Results Stored in `"$present_dir`" ...`n" | blue
+       Write-Output " >> Results Stored in `"$present_dir`" ...`n" | yellow
     } catch {
        Write-Output "`n >> An unexpected Error occured. Try again later ...`n"
     }
