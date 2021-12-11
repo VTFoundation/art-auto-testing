@@ -8,11 +8,18 @@ cls
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
 $setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] or have it installed already [N/n] ?"
 
+function green {
+   process { Write-Host $_ -ForegroundColor Green }
+}
+function yellow {
+   process { Write-Host $_ -ForegroundColor Yellow }
+}
+
 if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
    # Installing Invoke-Atomic Framework
    Write-Output "`n >> Installing Invoke-Atomic Framework ..."
    Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser -Force
-   Write-Output "`n >> Installed Invoke-Atomic Framework successfully ..." | green
+   Write-Output " >> Installed Invoke-Atomic Framework successfully ..." | green
    # Getting the atomics
    Write-Output "`n >> Getting the atomics ...`n"
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics -Force
@@ -33,12 +40,6 @@ if (-not (Test-Path -Path C:\AtomicRedTeam\atomics)) {
    Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
 }
 
-function green {
-   process { Write-Host $_ -ForegroundColor Green }
-}
-function yellow {
-   process { Write-Host $_ -ForegroundColor Yellow }
-}
 function Cleanup_atomic($atid) {
    
    $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
