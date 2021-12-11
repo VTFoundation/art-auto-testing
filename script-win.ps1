@@ -99,7 +99,7 @@ function Cleanup_atomic($atid) {
  
     try {
        powershell.exe $brief_details | Out-File $present_dir\Brief_Details.txt
-       powershell.exe $full_details | Out-File $present_dir\Full_Details.txt
+       powershell.exe $full_details | Out-File $present_dir\Full_Details.md
        Remove-Item $env:TEMP\svchost-exe.dmp -ErrorAction Ignore
        if ($check_pre -match "-GetPrereqs") {
           # Try installing the dependencies first ...
