@@ -6,7 +6,7 @@
 
 cls
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
-$setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] or have it installed [N/n] ?"
+$setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] or have it installed already [N/n] ?"
 
 if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
    # Installing Invoke-Atomic Framework
