@@ -4,7 +4,12 @@
 # Credits to https://github.com/redcanaryco/atomic-red-team
 # Created by @anantkaul
 
-cls
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+   $arguments = "& '" +$myinvocation.mycommand.definition + "'"
+   Start-Process powershell -Verb runAs -ArgumentList $arguments
+   Break
+} 
+
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
 $setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] or have it installed already [N/n] ?"
 
@@ -25,6 +30,8 @@ if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES")
    Write-Output "`n >> Getting the atomics ...`n" | yellow
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics -Force
    Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
+   Write-Output " >> Successfully Installed `"Atomic-Red-Team`" in `"C:\AtomicRedTeam\`" ..." | green
+   Read-Host -Prompt "`n >> Press enter to continue"
 }
 
 # Checking Invoke-Atomic Framework
@@ -39,6 +46,8 @@ if (-not (Test-Path -Path C:\AtomicRedTeam\atomics)) {
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics -Force
    # Importing the module
    Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
+   Write-Output " >> Successfully Installed `"Atomic-Red-Team`" in `"C:\AtomicRedTeam\`" ..." | green
+   Read-Host -Prompt "`n >> Press enter to continue"
 }
 
 function Cleanup_atomic($atid) {
