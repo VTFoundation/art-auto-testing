@@ -4,44 +4,58 @@
 # Credits to https://github.com/redcanaryco/atomic-red-team
 # Created by @anantkaul
 
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
+# Installing Invoke-Atomic Framework
+if (-not (Test-Path -Path C:\AtomicRedTeam\invoke-atomicredteam)) {
+   Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam
+}
+# Getting the atomics
+if (-not (Test-Path -Path C:\AtomicRedTeam\atomics)) {
+   Write-Output "`n >> Getting the atomics ...`n"
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics
+}
+# Importing the module
+Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
+
 function green {
-    process { Write-Host $_ -ForegroundColor Green }
- }
- function blue {
-    process { Write-Host $_ -ForegroundColor Blue }
- }
- function Cleanup_atomic($atid) {
-    
-    $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
-    $date_time = $date_time.Replace(':', "-")
-    $cleanup_dir = "$pwd\Cleanup_Logs"
- 
-    if (Test-Path $cleanup_dir) {
-    } else {
-       mkdir $cleanup_dir > 1.md; rm 1.md
-    }
-    $cl = "$cleanup_dir\$date_time.txt"
- 
-    for ($element = 0; $element -lt $atid.Count; $element++) {
- 
-       $a = $atid[$element]
-       $ac = $element + 1
- 
-       "`n[********BEGIN TEST-$ac CLEANUP *******]" >> $cl
-       powershell.exe "Invoke-AtomicTest $a -Cleanup" >> $cl
-       cd Cleanup_Logs
-       if ("PermissionDenied:" -match "$date_time.txt | sls `"PermissionDenied:`"") {
-       # if ('PermissionDenied:' -match "sls -pattern `"PermissionDenied:`" -path `"$cleanup_dir\$date_time.txt`"") {
-          Start-Process -Wait -Verb runAs powershell.exe "Invoke-AtomicTest $a -Cleanup" >> $cl
-       } else {
-          Start-Process -Wait powershell.exe "Invoke-AtomicTest $a -Cleanup" >> $cl
-       }
-       "[!!!!!!!! END  TEST-$ac CLEANUP !!!!!!!]" >> $cl
-    }
-    cd ..
-    Write-Output " >> Cleanup Logs stored in `"$cl`" ...`n" | blue
-    exit
- }
+   process { Write-Host $_ -ForegroundColor Green }
+}
+function yellow {
+   process { Write-Host $_ -ForegroundColor Yellow }
+}
+function Cleanup_atomic($atid) {
+   
+   $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
+   $date_time = $date_time.Replace(':', "-")
+   $cleanup_dir = "$pwd\Cleanup_Logs"
+
+   if (Test-Path $cleanup_dir) {
+   } else {
+      mkdir $cleanup_dir > 1.md; rm 1.md
+   }
+   $cl = "$cleanup_dir\$date_time.txt"
+
+   for ($element = 0; $element -lt $atid.Count; $element++) {
+
+      $a = $atid[$element]
+      $ac = $element + 1
+
+      "`n[********BEGIN TEST-$ac CLEANUP *******]" >> $cl
+      powershell.exe "Invoke-AtomicTest $a -Cleanup" >> $cl
+      cd Cleanup_Logs
+      if ("PermissionDenied:" -match "cat $date_time.txt | sls `"PermissionDenied:`"") {
+      # if ('PermissionDenied:' -match "sls -pattern `"PermissionDenied:`" -path `"$cleanup_dir\$date_time.txt`"") {
+         Start-Process -Wait -Verb runAs powershell.exe "Invoke-AtomicTest $a -Cleanup" >> $cl
+      } else {
+         Start-Process -Wait powershell.exe "Invoke-AtomicTest $a -Cleanup" >> $cl
+      }
+      "[!!!!!!!! END  TEST-$ac CLEANUP !!!!!!!]" >> $cl
+   }
+   cd ..
+   Write-Output " >> Cleanup Logs stored in `"$cl`" ...`n" | yellow
+   exit
+}
  
  $all_tids = @()
  $c = 0
