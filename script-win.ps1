@@ -125,7 +125,7 @@ function Cleanup_atomic($atid) {
     $all_tids += $tid
     $c++
  
-    $condition = Read-Host -Prompt "`n >> Do you want to continue with additional testing [Y/y] or proceed with a complete cleanup [N/n] ?"
+    $condition = Read-Host -Prompt " >> Do you want to continue with additional testing [Y/y] or proceed with a complete cleanup [N/n] ?"
    # Cleanup for [n] and [y] to continue ...
  
     if ($condition -eq "n" -or $condition -eq "N" -or $condition -eq "no" -or $condition -eq "NO") {
