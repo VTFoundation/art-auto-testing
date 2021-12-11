@@ -4,13 +4,14 @@
 # Credits to https://github.com/redcanaryco/atomic-red-team
 # Created by @anantkaul
 
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
+
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
    $arguments = "& '" +$myinvocation.mycommand.definition + "'"
    Start-Process powershell -Verb runAs -ArgumentList $arguments
    Break
 } 
 
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
 $setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] or have it installed already [N/n] ?"
 
 function green {
