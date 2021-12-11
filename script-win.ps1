@@ -20,12 +20,12 @@ if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES")
 # Checking Invoke-Atomic Framework
 if (-not (Test-Path -Path C:\AtomicRedTeam\invoke-atomicredteam)) {
    Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
-   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -Force
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam
 }
 # Checking the atomics
 if (-not (Test-Path -Path C:\AtomicRedTeam\atomics)) {
    Write-Output "`n >> Getting the atomics ...`n"
-   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -getAtomics -Force
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics
 }
 
 # Importing the module
