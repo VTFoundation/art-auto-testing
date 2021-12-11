@@ -11,10 +11,10 @@ $setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] o
 if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
    # Installing Invoke-Atomic Framework
    Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
-   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -Force
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam
    # Getting the atomics
    Write-Output "`n >> Getting the atomics ...`n"
-   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -getAtomics -Force
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics
 }
 
 # Checking Invoke-Atomic Framework
