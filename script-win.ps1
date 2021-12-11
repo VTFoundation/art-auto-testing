@@ -4,6 +4,7 @@
 # Credits to https://github.com/redcanaryco/atomic-red-team
 # Created by @anantkaul
 
+cls
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
 # Installing Invoke-Atomic Framework
 if (-not (Test-Path -Path C:\AtomicRedTeam\invoke-atomicredteam)) {
