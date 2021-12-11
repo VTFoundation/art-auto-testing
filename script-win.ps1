@@ -144,3 +144,4 @@ function Cleanup_atomic($atid) {
     }
  } while ($condition -eq "y" -or $condition -eq "Y" -or $condition -eq "yes" -or $condition -eq "YES")
  
+Read-Host -Prompt " >> Press enter to exit"
