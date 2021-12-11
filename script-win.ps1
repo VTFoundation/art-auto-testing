@@ -6,16 +6,28 @@
 
 cls
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
-# Installing Invoke-Atomic Framework
+$setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] or have it installed [N/n] ?"
+
+if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
+   # Installing Invoke-Atomic Framework
+   Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -Force
+   # Getting the atomics
+   Write-Output "`n >> Getting the atomics ...`n"
+   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -getAtomics -Force
+}
+
+# Checking Invoke-Atomic Framework
 if (-not (Test-Path -Path C:\AtomicRedTeam\invoke-atomicredteam)) {
    Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -Force
 }
-# Getting the atomics
+# Checking the atomics
 if (-not (Test-Path -Path C:\AtomicRedTeam\atomics)) {
    Write-Output "`n >> Getting the atomics ...`n"
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing -Force); Install-AtomicRedTeam -getAtomics -Force
 }
+
 # Importing the module
 Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
 
