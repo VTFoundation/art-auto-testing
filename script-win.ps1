@@ -11,7 +11,7 @@ $setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] o
 if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
    # Installing Invoke-Atomic Framework
    Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
-   Install-PackageProvider -Name NuGet -Force
+   Start-Process -Wait -Verb runAs powershell.exe "Install-PackageProvider -Name NuGet -Force"
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -Force 
    # Getting the atomics
    Write-Output "`n >> Getting the atomics ...`n"
@@ -21,7 +21,7 @@ if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES")
 # Checking Invoke-Atomic Framework
 if (-not (Test-Path -Path C:\AtomicRedTeam\invoke-atomicredteam)) {
    Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
-   Install-PackageProvider -Name NuGet -Force
+   Start-Process -Wait -Verb runAs powershell.exe "Install-PackageProvider -Name NuGet -Force"
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -Force
 }
 # Checking the atomics
