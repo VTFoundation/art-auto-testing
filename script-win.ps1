@@ -10,30 +10,28 @@ $setup = Read-Host -Prompt "`n >> Do you want to install Atomic-Red-Team [Y/y] o
 
 if ($setup -eq "y" -or $setup -eq "Y" -or $setup -eq "yes" -or $setup -eq "YES") {
    # Installing Invoke-Atomic Framework
-   Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
-   Start-Process -Wait -Verb runAs powershell.exe "Install-PackageProvider -Name NuGet -Force"
-   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -Force 
+   Write-Output "`n >> Installing Invoke-Atomic Framework ..."
+   Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+   Write-Output "`n >> Installed Invoke-Atomic Framework successfully ..." | green
    # Getting the atomics
    Write-Output "`n >> Getting the atomics ...`n"
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics -Force
    Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
-   $PSDefaultParameterValues = @{"Invoke-AtomicTest:PathToAtomicsFolder"="C:\AtomicRedTeam\atomics"}
 }
 
 # Checking Invoke-Atomic Framework
 if (-not (Test-Path -Path C:\AtomicRedTeam\invoke-atomicredteam)) {
    Write-Output "`n >> Installing Invoke-Atomic Framework ...`n"
-   Start-Process -Wait -Verb runAs powershell.exe "Install-PackageProvider -Name NuGet -Force"
-   Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -Force
+   Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+   Write-Output "`n >> Installed Invoke-Atomic Framework successfully ..." | green
 }
 # Checking the atomics
 if (-not (Test-Path -Path C:\AtomicRedTeam\atomics)) {
    Write-Output "`n >> Getting the atomics ...`n"
    Invoke-Expression (Invoke-WebRequest 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing); Install-AtomicRedTeam -getAtomics -Force
+   # Importing the module
+   Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
 }
-
-# Importing the module
-Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
 
 function green {
    process { Write-Host $_ -ForegroundColor Green }
