@@ -20,6 +20,6 @@ curl https://raw.githubusercontent.com/VTFoundation/atomic-red-team/main/script-
 ```
 
 Decision making during the script:
-1. Ivoke framkework install?
+1. Invoke framkework install?
 2. Which TIDs to run (e.r. T1070) or ALL
 3. Clean up
