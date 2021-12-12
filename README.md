@@ -1,4 +1,5 @@
-# atomic-red-team-auto
+# ART-auto-testing
+Lets define ART, atomic Red Team.
 Credits to https://github.com/redcanaryco/atomic-red-team
 For information about the philosophy and development of Atomic Red Team, visit a website at https://atomicredteam.io
 
