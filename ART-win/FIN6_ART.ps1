@@ -4,6 +4,8 @@
 # Credits to https://github.com/redcanaryco/atomic-red-team
 # Created by @anantkaul
 
+$res_loc = "C:\AtomicRedTeam\VTF"
+
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
 
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
@@ -55,7 +57,7 @@ function Cleanup_atomic($atid) {
    
    $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
    $date_time = $date_time.Replace(':', "-")
-   $cleanup_dir = "$pwd\Cleanup_Logs"
+   $cleanup_dir = "$res_loc\Cleanup_Logs"
 
    if (Test-Path $cleanup_dir) {
    } else {
@@ -98,7 +100,7 @@ $fin6 = @('T1078.001','T1078.003','T1059.001','T1059.003','T1047','T1134.001','T
 
 foreach ($tid in $fin6) {
 
-    $present_dir = "$pwd\ART_Results\$date_time\$tid"
+    $present_dir = "$res_loc\ART_Results\$date_time\$tid"
 
     $check_pre = powershell.exe "Invoke-AtomicTest $tid -CheckPrereqs" | sls "-GetPrereqs"
     $get_pre = "Invoke-AtomicTest $tid -GetPrereqs -Force"
