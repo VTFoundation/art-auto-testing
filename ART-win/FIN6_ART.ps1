@@ -1,6 +1,6 @@
 # PI.ps1
 
-# Windows FIN6_ART
+# Windows ART
 # Credits to https://github.com/redcanaryco/atomic-red-team
 # Created by @anantkaul
 
@@ -132,7 +132,7 @@ foreach ($tid in $fin6) {
         mv $HOME\Desktop\open-ports.txt $present_dir\Open_Ports.txt
     }
     
-    Write-Output "`n >> AtomicTest Completed Successfully !!" | green
+    Write-Output "`n >> AtomicTest $tid Completed Successfully !!" | green
     Write-Output " >> Results Stored in `"$present_dir`" ...`n" | yellow
     } catch {
     Write-Output "`n >> An unexpected Error occured. Try again later ...`n"
