@@ -1,6 +1,6 @@
 # PI.ps1
 
-# Windows ART
+# Windows FIN6_ART
 # Credits to https://github.com/redcanaryco/atomic-red-team
 # Created by @anantkaul
 
@@ -91,19 +91,19 @@ function Cleanup_atomic($atid) {
 $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
 $date_time = $date_time.Replace(':', "-")
 
-$check_pre = powershell.exe "Invoke-AtomicTest $tid -CheckPrereqs" | sls "-GetPrereqs"
-$get_pre = "Invoke-AtomicTest $tid -GetPrereqs -Force"
-$brief_details = "Invoke-AtomicTest $tid -ShowDetailsBrief"
-$full_details = "Invoke-AtomicTest $tid -ShowDetails"
-
 cls
 # $tid = Read-Host -Prompt "`n >> Enter the Technique ID ( with prefix `'T`' ) or type ALL for AtomicTest"
-$fin6 = 'T1078.001','T1078.003','T1059.001','T1059.003','T1047','T1134.001','T1134.002','T1134.004','T1027.001','T1027.002','T1027.004','T1046','T1018','T1560.001','T1560.002','T1560','T1119','T1095','T1572'
+$fin6 = @('T1078.001','T1078.003','T1059.001','T1059.003','T1047','T1134.001','T1134.002','T1134.004','T1027.001','T1027.002','T1027.004','T1046','T1018','T1560.001','T1560.002','T1560','T1119','T1095','T1572')
 # $date_time = Get-Date -Format "dd/MM/yyyy_HH:mm:ss"
 
 foreach ($tid in $fin6) {
 
     $present_dir = "$pwd\ART_Results\$date_time\$tid"
+
+    $check_pre = powershell.exe "Invoke-AtomicTest $tid -CheckPrereqs" | sls "-GetPrereqs"
+    $get_pre = "Invoke-AtomicTest $tid -GetPrereqs -Force"
+    $brief_details = "Invoke-AtomicTest $tid -ShowDetailsBrief"
+    $full_details = "Invoke-AtomicTest $tid -ShowDetails"
 
     if (Test-Path $present_dir) {
     # Write-Output " >> Previous AtomicTest Overwriting and Updating with the Latest AtomicTest ..."
