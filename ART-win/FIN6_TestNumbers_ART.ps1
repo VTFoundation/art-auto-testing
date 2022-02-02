@@ -129,7 +129,7 @@ $fin6 = @('T1078.001 -TestNumbers 1',
           'T1056.001 -TestNumbers 1',
           'T1056.001 -TestNumbers 2',
           'T1119 -TestNumbers 1',
-          'T1119 -TestNumbers 3',)
+          'T1119 -TestNumbers 3')
 
 # $date_time = Get-Date -Format "dd/MM/yyyy_HH:mm:ss"
 
