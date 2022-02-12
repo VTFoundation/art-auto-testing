@@ -27,7 +27,7 @@ if %option%==1 (
 	cls
 	echo.
 	echo  ^>^> Installing Atomic-Red-Team ...
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Install_ART.ps1 -o C:\ProgramData\art_installer.ps1 && powershell.exe C:\ProgramData\art_installer.ps1
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Install_ART.ps1 -o C:\ProgramData\art_installer.ps1 && start /wait powershell.exe -File C:\ProgramData\art_installer.ps1
 	echo  ^>^> Installed Atomic-Red-Team Successfully ...
 	echo.
 	pause
@@ -42,7 +42,7 @@ if %option%==2 (
 	echo  Not Updated till now ... 
 	echo  Come back later ...
 	echo.
-	::curl https://raw.githubusercontent.com/VTFoundation/tbx/main/scripts/install_cb.ps1 -o C:\ProgramData\art_uninstaller.ps1 && powershell.exe C:\ProgramData\art_uninstaller.ps1
+	::curl https://raw.githubusercontent.com/VTFoundation/tbx/main/scripts/install_cb.ps1 -o C:\ProgramData\art_uninstaller.ps1 && start /wait powershell.exe -File C:\ProgramData\art_uninstaller.ps1
 	echo  ^>^> Uninstalled Atomic-Red-Team Successfully ...
 	echo.
 	pause
@@ -53,7 +53,7 @@ if %option%==3 (
 	cls
 	echo.
 	echo  ^>^> Starting Automated FIN6-ART Testing ...
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/ART_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && powershell.exe C:\ProgramData\art_fin6.ps1
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/ART_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && start /wait powershell.exe -File C:\ProgramData\art_fin6.ps1
 	echo  ^>^> Successfully Completed Automated FIN6-ART Testing ...
 	echo.
 	pause
@@ -64,7 +64,7 @@ if %option%==4 (
 	cls
 	echo.
 	echo  ^>^> Initializing Clean-Up for FIN6-ART Testing ...
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Cleanup_FIN6.ps1 -o C:\ProgramData\art_fin6_cleanup.ps1 && powershell.exe C:\ProgramData\art_fin6_cleanup.ps1
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Cleanup_FIN6.ps1 -o C:\ProgramData\art_fin6_cleanup.ps1 && start /wait powershell.exe -File C:\ProgramData\art_fin6_cleanup.ps1
 	echo  ^>^> FIN6-ART Testing Clean-Up Successfully Completed ...
 	echo.
 	pause
