@@ -28,9 +28,9 @@ if %option%==1 (
 	echo.
 	echo  ^>^> Installing Atomic-Red-Team ...
 	echo.
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Install_ART.ps1 -o C:\ProgramData\art_installer.ps1 && start /wait powershell.exe -File C:\ProgramData\art_installer.ps1
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Install_ART.ps1 -o C:\ProgramData\art_installer.ps1 && powershell.exe C:\ProgramData\art_installer.ps1
 	echo.
-	echo  ^>^> Installed Atomic-Red-Team Successfully ...
+	echo  ^>^> Install of Atomic-Red-Team Initialized Successfully ...
 	echo.
 	pause
 	del C:\ProgramData\art_installer.ps1
@@ -44,8 +44,8 @@ if %option%==2 (
 	echo  Not Updated till now ... 
 	echo  Come back later ...
 	echo.
-	::curl https://raw.githubusercontent.com/VTFoundation/tbx/main/scripts/install_cb.ps1 -o C:\ProgramData\art_uninstaller.ps1 && start /wait powershell.exe -File C:\ProgramData\art_uninstaller.ps1
-	echo  ^>^> Uninstalled Atomic-Red-Team Successfully ...
+	::curl https://raw.githubusercontent.com/VTFoundation/tbx/main/scripts/install_cb.ps1 -o C:\ProgramData\art_uninstaller.ps1 && powershell.exe C:\ProgramData\art_uninstaller.ps1
+	echo  ^>^> Uninstall of Atomic-Red-Team Initialized Successfully ...
 	echo.
 	pause
 	del C:\ProgramData\art_uninstaller.ps1
@@ -56,9 +56,9 @@ if %option%==3 (
 	echo.
 	echo  ^>^> Starting Automated FIN6-ART Testing ...
 	echo.
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/ART_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && start /wait powershell.exe -File C:\ProgramData\art_fin6.ps1
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/ART_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && powershell.exe C:\ProgramData\art_fin6.ps1
 	echo.
-	echo  ^>^> Successfully Completed Automated FIN6-ART Testing ...
+	echo  ^>^> Successfully Started Automated FIN6-ART Testing ...
 	echo.
 	pause
 	del C:\ProgramData\art_fin6.ps1
@@ -70,8 +70,9 @@ if %option%==4 (
 	echo.
 	echo  ^>^> Initializing Clean-Up for FIN6-ART Testing ...
 	echo.
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Cleanup_FIN6.ps1 -o C:\ProgramData\art_fin6_cleanup.ps1 && start /wait powershell.exe -File C:\ProgramData\art_fin6_cleanup.ps1
-	echo  ^>^> FIN6-ART Testing Clean-Up Successfully Completed ...
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Cleanup_FIN6.ps1 -o C:\ProgramData\art_fin6_cleanup.ps1 && powershell.exe C:\ProgramData\art_fin6_cleanup.ps1
+	echo.
+	echo  ^>^> FIN6-ART Testing Clean-Up Successfully Initiallized ...
 	echo.
 	pause
 	del C:\ProgramData\art_fin6_cleanup.ps1
