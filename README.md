@@ -24,3 +24,8 @@ Decision making during the script:
 1. Invoke framkework install?
 2. Which TIDs to run (e.r. T1070) or ALL
 3. Clean up
+
+## ART.bat
+```powershell
+curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART.bat -o ART.bat; .\ART.bat
+```
