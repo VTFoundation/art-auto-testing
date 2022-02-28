@@ -70,7 +70,7 @@ if %option%==3 (
 	echo.
 	echo  ^>^> Starting Automated FIN6-ART Testing ...
 	echo.
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/ART_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && powershell.exe C:\ProgramData\art_fin6.ps1
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/FIN6_run.ps1 -o C:\ProgramData\art_fin6.ps1 && powershell.exe C:\ProgramData\art_fin6.ps1
 	echo.
 	echo  ^>^> Successfully Started Automated FIN6-ART Testing ...
 	echo.
