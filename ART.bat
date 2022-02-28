@@ -6,9 +6,10 @@ echo.
 echo  ^>^> Which Operation you want to perform?
 echo.
 echo  1 --^> Install Atomic-Red-Team.
+echo  2 --^> Prereqs for FIN6-ART.
 :: echo  2 --^> Uninstall Atomic-Red-Team.
-echo  2 --^> Automated FIN6-ART Testing.
-echo  3 --^> Clean-Up FIN6-ART Testing.
+echo  3 --^> Automated FIN6-ART Testing.
+echo  4 --^> Clean-Up FIN6-ART Testing.
 echo.
 echo  0 --^> Exit.
 echo.
@@ -54,6 +55,19 @@ if %option%==1 (
 if %option%==2 (
 	cls
 	echo.
+	echo  ^>^> Checking Prereqs for FIN6-ART ...
+	echo.
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Prereqs_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && powershell.exe C:\ProgramData\art_fin6_prereqs.ps1
+	echo.
+	echo  ^>^> Successfully met Prereqs for FIN6-ART Testing ...
+	echo.
+	pause
+	del C:\ProgramData\art_fin6_prereqs.ps1
+	goto start
+) 
+if %option%==3 (
+	cls
+	echo.
 	echo  ^>^> Starting Automated FIN6-ART Testing ...
 	echo.
 	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/ART_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && powershell.exe C:\ProgramData\art_fin6.ps1
@@ -63,8 +77,8 @@ if %option%==2 (
 	pause
 	del C:\ProgramData\art_fin6.ps1
 	goto start
-) 
-if %option%==3 (
+)
+if %option%==4 (
 	cls
 	echo.
 	echo.
