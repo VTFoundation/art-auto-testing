@@ -57,7 +57,7 @@ if %option%==2 (
 	echo.
 	echo  ^>^> Checking Prereqs for FIN6-ART ...
 	echo.
-	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Prereqs_FIN6.ps1 -o C:\ProgramData\art_fin6.ps1 && powershell.exe C:\ProgramData\art_fin6_prereqs.ps1
+	curl https://raw.githubusercontent.com/VTFoundation/art-auto-testing/main/ART-win/scripts/Prereqs_FIN6.ps1 -o C:\ProgramData\art_fin6_prereqs.ps1 && powershell.exe C:\ProgramData\art_fin6_prereqs.ps1
 	echo.
 	echo  ^>^> Successfully met Prereqs for FIN6-ART Testing ...
 	echo.
